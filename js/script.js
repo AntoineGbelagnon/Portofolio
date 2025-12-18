@@ -116,52 +116,60 @@
     });
   });
 
-  /* ===================== EMAILJS (SDK v4 OK) ===================== */
+  /* ===================== EMAILJS ===================== */
 if (typeof emailjs === "undefined") {
-    console.error("EmailJS non chargé");
+  console.error("EmailJS non chargé");
+  return;
+}
+
+emailjs.init("mBtMnqo6tGtm15pG7"); // clé publique
+
+const form = document.querySelector(".contact-form form");
+const successMsg = document.getElementById("form-success"); // <-- Ajouté
+
+if (!form) return;
+
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const from_name = document.getElementById("name").value.trim();
+  const from_email = document.getElementById("email").value.trim();
+  const subject = document.getElementById("subject").value.trim();
+  const message = document.getElementById("message").value.trim();
+
+  if (!from_name || !from_email || !message) {
+    alert("Veuillez remplir tous les champs obligatoires.");
     return;
   }
-  emailjs.init("mBtMnqo6tGtm15pG7"); // clé publique
 
-  const form = document.querySelector(".contact-form form");
-  if (!form) return;
+  // Paramètres envoyés à EmailJS (doivent correspondre au template)
+  const params = {
+    from_name,
+    from_email,
+    subject: subject || "Message Portfolio",
+    message: message, // ⚡ correspond à {{message}} dans le template EmailJS
+    reply_to: from_email
+  };
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+  emailjs.send("service_58x47pp", "template_ggbiifm", params)
+    .then(() => {
+      // Affiche le message success
+      if (successMsg) {
+        successMsg.style.display = "flex";
+        // Cache le message après 5 secondes
+        setTimeout(() => {
+          successMsg.style.display = "none";
+        }, 5000);
+      }
 
-    const from_name = document.getElementById("name").value.trim();
-    const from_email = document.getElementById("email").value.trim();
-    const message = document.getElementById("message").value.trim();
+      form.reset();
+    })
+    .catch((error) => {
+      console.error("Erreur EmailJS :", error);
+      alert("❌ Une erreur est survenue lors de l’envoi.");
+    });
+});
 
-    if (!from_name || !from_email || !message) {
-      alert("Veuillez remplir tous les champs obligatoires.");
-      return;
-    }
 
-    // Formatage HTML du message
-    const htmlMessage = `
-      <p><strong>Nom :</strong> ${from_name}</p>
-      <p><strong>Email :</strong> ${from_email}</p>
-      <p><strong>Message :</strong> <em>${message}</em></p>
-    `;
-
-    const params = {
-      from_name,
-      from_email,
-      subject: "Message Portfolio", // Sujet fixe
-      message: htmlMessage,
-      reply_to: from_email
-    };
-
-    emailjs.send("service_58x47pp", "template_ggbiifm", params)
-      .then(() => {
-        alert("✅ Message envoyé avec succès !");
-        form.reset();
-      })
-      .catch(err => {
-        console.error("Erreur EmailJS :", err);
-        alert("❌ Une erreur est survenue lors de l’envoi.");
-      });
-  });
 
 })();

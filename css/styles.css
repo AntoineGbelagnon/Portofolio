@@ -766,4 +766,106 @@ html, body {
     overflow-x: hidden;
   }
 }
-.about-illustration img
+
+/* HERO RESPONSIVE */
+@media (max-width: 992px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding-top: 7rem;
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .hero p {
+    max-width: 100%;
+  }
+
+  .profile-pic {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    margin: 2.5rem auto 0;
+    width: 280px;
+    height: auto;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    padding-top: 2rem;
+  }
+
+  .nav-links a {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .about-content {
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+
+  .about-text p {
+    font-size: 1rem;
+  }
+
+  .about-illustration img {
+    max-width: 80%;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .about-illustration img {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-image {
+    height: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-container {
+    gap: 2rem;
+  }
+
+  .contact-item {
+    align-items: flex-start;
+  }
+
+  .contact-icon {
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  h2 {
+    font-size: 2rem;
+  }
+
+  section {
+    padding: 5rem 5%;
+  }
+}
